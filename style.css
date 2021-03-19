@@ -22,3 +22,8 @@
 .title{
     border-bottom: 2px solid black;
 }
+.controls{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+}
