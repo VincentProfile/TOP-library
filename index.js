@@ -45,10 +45,13 @@ function showForm(){
     form.style.display = 'block';
 }
 
-const cancelForm = document.querySelector('#closeForm');
-//cancelForm.addEventListener('click', closeForm);
-window.addEventListener('click', closeForm);
+const resetForm = document.querySelector('#resetForm');
+resetForm.addEventListener('click', clearFormData);
+function clearFormData(e){
+    console.log('test');
+}
 
+window.addEventListener('click', closeForm);
 function closeForm(e){
     if (e.target == form) {
         form.style.display = "none";
@@ -86,12 +89,19 @@ function showBooksOnLibrary(){
         const read = document.createElement('p');
         read.className = 'read';
         read.innerText = book.Read;
+
+        const removeBookBtn = document.createElement('button');
+        removeBookBtn.className = 'button';
+        removeBookBtn.id = 'removeBook';
+        removeBookBtn.innerText = 'Remove';
+
         div.appendChild(title);
         div.appendChild(author);
         div.appendChild(genre);
         div.append(year);
         div.append(pages);
         div.append(read);
+        div.append(removeBookBtn);
 
         books.appendChild(div);
     })

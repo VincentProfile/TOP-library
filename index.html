@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>calculator</title>
+        <title>Library</title>
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -15,30 +15,49 @@
         <div id="bookModal" class="modal">
             <div class="modal-content">
                 <form id = "bookForm" class="form">
-
-                    <Label for="title" class="label">Title:</Label>
-                    <input type="text" id="title" value="" class="input">
-
-                    <Label for="author" class="label">Author:</Label>
-                    <input type="text" id="author" value="" class="input">
-
-                    <Label for="genre" class="label">Genre(s):</Label>
-                    <input type="text" id="genre" value="" class="input">
-
-                    <Label for="year" class="label">Published Year:</Label>
-                    <input type="year" id="year" value="" class="input">
-
-                    <Label for="pages" class="label">Number of Pages:</Label>
-                    <input type="number" id="pages" value="" class="input">
-
-                    <Label for="read" class="label">Read:</Label>
-                    <input type="checkbox" id="read" value="" class="input"><br>
-
-                    <Label for="completedDate" class="label">Date Completed:</Label>
-                    <input type="date" id="completedDate" value="" class="input">
-
-                    <button class="button" id="closeForm">Cancel</button>
-                    <button class="button" id="addBook">Save</button>
+                    <div class="bookInfo">
+                        <div class="container">
+                            <Label for="title" class="label">Title:</Label>
+                            <input type="text" id="title" value="" class="input">
+                        </div>
+    
+                        <div class="container">
+                            <Label for="author" class="label">Author:</Label>
+                            <input type="text" id="author" value="" class="input">
+                        </div>
+    
+                        <div class="container">
+                            <Label for="genre" class="label">Genre(s):</Label>
+                            <input type="text" id="genre" value="" class="input">
+                        </div>
+    
+                        <div class="container">
+                            <Label for="year" class="label">Published Year:</Label>
+                            <input type="year" id="year" value="" class="input">
+                        </div>
+    
+                        <div class="container">
+                            <Label for="pages" class="label">Number of Pages:</Label>
+                            <input type="number" id="pages" value="" class="input">
+                        </div>
+    
+                        <div class="container">
+                            <Label for="readStatus" class="label">Read Status:</Label>
+                                <select class="select" id="readStatus">
+                                    <option value="want-to-read">Want To Read</option>
+                                    <option value="reading">Reading</option>
+                                    <option value="read">Read</option>
+                                  </select>
+                        </div>
+                        <div class="container">
+                            <Label for="completedDate" class="label">Date Completed:</Label>
+                            <input type="date" id="completedDate" value="" class="input">
+                        </div>
+                    </div>
+                    <div class="btnContainer" id="editForm">
+                        <button class="button" id="resetForm">Reset Fields</button>
+                        <input type="submit" id="addBook">
+                    </div>
                 </form>
             </div>
         </div>
