@@ -10,11 +10,41 @@
         <header>
             <h1 class="header">Library</h1>
         </header>
-        <div class="books">
+        <div class="books"></div>
 
+        <div id="bookModal" class="modal">
+            <div class="modal-content">
+                <form id = "bookForm" class="form">
+
+                    <Label for="title" class="label">Title:</Label>
+                    <input type="text" id="title" value="" class="input">
+
+                    <Label for="author" class="label">Author:</Label>
+                    <input type="text" id="author" value="" class="input">
+
+                    <Label for="genre" class="label">Genre(s):</Label>
+                    <input type="text" id="genre" value="" class="input">
+
+                    <Label for="year" class="label">Published Year:</Label>
+                    <input type="year" id="year" value="" class="input">
+
+                    <Label for="pages" class="label">Number of Pages:</Label>
+                    <input type="number" id="pages" value="" class="input">
+
+                    <Label for="read" class="label">Read:</Label>
+                    <input type="checkbox" id="read" value="" class="input"><br>
+
+                    <Label for="completedDate" class="label">Date Completed:</Label>
+                    <input type="date" id="completedDate" value="" class="input">
+
+                    <button class="button" id="closeForm">Cancel</button>
+                    <button class="button" id="addBook">Save</button>
+                </form>
+            </div>
         </div>
+          
         <div class="controls">
-            <button class="addBook">Add Book</button>
+            <button class="button" id="openModal">Add Book</button>
         </div>
         <script src="index.js"></script>
     </body>

@@ -6,6 +6,7 @@ let myLibrary = [
         Year: 2011,
         'Number of Pages': 500,
         Read: true,
+        DateCompleted: '01-01-2021',
     },
     {
         Title: 'Leonardo Da Vinci',
@@ -14,6 +15,7 @@ let myLibrary = [
         Year: 2017,
         'Number of Pages': 600,
         Read: true,
+        DateCompleted: '01-01-2021',
 
     },
     {
@@ -23,6 +25,7 @@ let myLibrary = [
         Year: 2007,
         'Number of Pages': 700,
         Read: true,
+        DateCompleted: '01-01-2021',
     },
 ];
 
@@ -30,12 +33,28 @@ function Book() {
     // constructor
 }
 
-function addBookToLibrary() {
+function addBookToLibrary(e) {
     // do stuff
 }
 
-const addBook = document.querySelector('.addBook');
-addBook.addEventListener('click', addBookToLibrary());
+const addBook = document.querySelector('#openModal');
+addBook.addEventListener('click', showForm);
+
+const form = document.querySelector('.modal');
+function showForm(){
+    form.style.display = 'block';
+}
+
+const cancelForm = document.querySelector('#closeForm');
+//cancelForm.addEventListener('click', closeForm);
+window.addEventListener('click', closeForm);
+
+function closeForm(e){
+    if (e.target == form) {
+        form.style.display = "none";
+    }
+}
+
 
 const books = document.querySelector('.books');
 
