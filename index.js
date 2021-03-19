@@ -37,8 +37,8 @@ function addBookToLibrary(e) {
     // do stuff
 }
 
-const addBook = document.querySelector('#openModal');
-addBook.addEventListener('click', showForm);
+const openModal = document.querySelector('#openModal');
+openModal.addEventListener('click', showForm);
 
 const form = document.querySelector('.modal');
 function showForm(){
