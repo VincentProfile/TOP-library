@@ -42,6 +42,7 @@ function Book() {
 Book.prototype.addBookToLibrary = () => {
     // do stuff
     myLibrary.push({
+        // add books from form values to library array
         Title: title.value,
         Author: author.value,
         Genre: genre.value,
@@ -56,7 +57,8 @@ Book.prototype.addBookToLibrary = () => {
 const form = document.querySelector('.form');
 form.onsubmit = () => {
     if (myLibrary.find(book => book.Title === title.value)){
-        if (confirm("Update existing book information?")){
+        if (confirm("Update existing book?")){
+            // update library array from form values
             const bookNumber = myLibrary.findIndex(book => book.Title === title.value);
             myLibrary[bookNumber].Title = title.value;
             myLibrary[bookNumber].Author = author.value;
@@ -64,8 +66,11 @@ form.onsubmit = () => {
             myLibrary[bookNumber].Year = year.value;
             myLibrary[bookNumber]['Number of Pages'] = pages.value;
             myLibrary[bookNumber].ReadStatus = readStatus.value;
-            myLibrary[bookNumber].DateCompleted = dateCompleted.value;
-
+            if (readStatus.value === 'Read'){
+                myLibrary[bookNumber].DateCompleted = dateCompleted.value;
+            }else{
+                myLibrary[bookNumber].DateCompleted = '';
+            }
             formModal.style.display = 'none'; 
         }
     }else{
@@ -87,9 +92,9 @@ openModal.addEventListener('click', showForm);
 const formModal = document.querySelector('.modal');
 function showForm(e){
     if (e.target.id == 'editForm'){
-        //const bookInfo = document.querySelectorAll(`[data-index="${e.target.getAttribute('data-index')}"]`);
         myLibrary.forEach((book, index) =>{
             if (e.target.getAttribute('data-index') == index){
+                // show current book information on form 
                 title.value = book.Title;
                 author.value = book.Author;
                 genre.value = book.Genre;
@@ -100,7 +105,6 @@ function showForm(e){
             }
         })
     }
-    
     formModal.style.display = 'block';
 }
 
@@ -114,6 +118,7 @@ function closeForm(e){
 
 const books = document.querySelector('.books');
 
+// add dom elements 
 function showBooksOnLibrary(){
     myLibrary.forEach((book, index) => {
         const div = document.createElement('Div');
@@ -155,8 +160,9 @@ function showBooksOnLibrary(){
 
         const dateCompleted = document.createElement('p');
         dateCompleted.className = 'dateCompleted';
-        if (book.ReadStatus == "Read")
+        if (book.ReadStatus == "Read"){
             dateCompleted.innerText = `Completed On: ${book.DateCompleted}`;
+        }
         dateCompleted.setAttribute('data-index', index);
 
         const btnsDiv = document.createElement('div');
@@ -193,7 +199,13 @@ function showBooksOnLibrary(){
     })
 
     function removeBook(e){
-
+        const bookPosition = e.target.getAttribute('data-index');
+        myLibrary.splice(bookPosition, 1);
+        const removeElements = document.querySelector(`[data-index="${bookPosition}"]`)
+        removeElements.innerHTML = '';
+        const books = document.querySelector('.books');
+        books.removeChild(removeElements);
+        //const bookInfo = document.querySelectorAll(`[data-index="${e.target.getAttribute('data-index')}"]`);
     }
 }
 
