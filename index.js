@@ -1,33 +1,4 @@
-let myLibrary = [
-    {
-        Title: 'Steve Jobs',
-        Author: 'Walter Isaacson',
-        Genre: 'Biography, Nonfiction, Technology, Inspirational',
-        Year: 2011,
-        'Number of Pages': 500,
-        ReadStatus: 'Read',
-        DateCompleted: '01-01-2021',
-    },
-    {
-        Title: 'Leonardo Da Vinci',
-        Author: 'Walter Isaacson',
-        Genre: 'Biography, Nonfiction, Technology, Engineering',
-        Year: 2017,
-        'Number of Pages': 600,
-        ReadStatus: 'Read',
-        DateCompleted: '01-01-2021',
-
-    },
-    {
-        Title: 'Albert Einstein',
-        Author: 'Walter Isaacson',
-        Genre: 'Biography, Nonfiction, Science',
-        Year: 2007,
-        'Number of Pages': 700,
-        ReadStatus: 'Read',
-        DateCompleted: '01-01-2021',
-    },
-];
+let myLibrary = [];
 let title = document.querySelector('#title');
 let author = document.querySelector('#author');
 let genre = document.querySelector('#genre');
@@ -51,8 +22,8 @@ Book.prototype.addBookToLibrary = () => {
         ReadStatus: readStatus.value,
         DateCompleted: dateCompleted.value,
     })
+    localStorage.setItem('Library', JSON.stringify(myLibrary));
 
-    console.table(myLibrary);
 }
 
 // on submit form
@@ -199,13 +170,21 @@ function showBooksOnLibrary(){
 
         books.appendChild(div);
     })
-
-    function removeBook(e){
-        const bookPosition = e.target.getAttribute('data-index');
-        myLibrary.splice(bookPosition, 1);
-        books.innerHTML = '';
-        showBooksOnLibrary();
-    }
 }
 
+function removeBook(e){
+    const bookPosition = e.target.getAttribute('data-index');
+    myLibrary.splice(bookPosition, 1);
+    books.innerHTML = '';
+    
+    localStorage.setItem('Library', JSON.stringify(myLibrary));
+    showBooksOnLibrary();
+}
+
+function loadLibrary(){
+    if (localStorage.getItem('Library') !== null){
+        myLibrary = JSON.parse(localStorage.getItem('Library'));
+    }
+}
+loadLibrary();
 showBooksOnLibrary();
