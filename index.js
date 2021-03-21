@@ -27,6 +27,7 @@ Book.prototype.addBookToLibrary = () => {
 }
 
 // on submit form
+const submitBtn = document.querySelector('#addBook');
 const form = document.querySelector('.form');
 form.onsubmit = () => {
     if (myLibrary.find(book => book.Title === title.value)){
@@ -59,12 +60,14 @@ form.onsubmit = () => {
     return false;
 }
 
+// form details
 const openModal = document.querySelector('#openModal');
 openModal.addEventListener('click', showForm);
 
 const formModal = document.querySelector('.modal');
 function showForm(e){
     if (e.target.id == 'editForm'){
+        submitBtn.value = 'Update';
         myLibrary.forEach((book, index) =>{
             if (e.target.getAttribute('data-index') == index){
                 // show current book information on form 
@@ -77,6 +80,9 @@ function showForm(e){
                 dateCompleted.value = book.DateCompleted;
             }
         })
+    }
+    else{
+        submitBtn.value = 'Submit';
     }
     formModal.style.display = 'block';
 }
@@ -140,6 +146,7 @@ function showBooksOnLibrary(){
 
         const btnsDiv = document.createElement('div');
         btnsDiv.className = 'div';
+        btnsDiv.id = 'btnsDiv';
         btnsDiv.setAttribute('data-index', index);
 
         const editFormBtn = document.createElement('button');
@@ -176,7 +183,7 @@ function removeBook(e){
     const bookPosition = e.target.getAttribute('data-index');
     myLibrary.splice(bookPosition, 1);
     books.innerHTML = '';
-    
+
     localStorage.setItem('Library', JSON.stringify(myLibrary));
     showBooksOnLibrary();
 }
@@ -185,6 +192,6 @@ function loadLibrary(){
     if (localStorage.getItem('Library') !== null){
         myLibrary = JSON.parse(localStorage.getItem('Library'));
     }
+    showBooksOnLibrary();
 }
 loadLibrary();
-showBooksOnLibrary();
