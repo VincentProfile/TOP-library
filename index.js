@@ -28,36 +28,53 @@ let myLibrary = [
         DateCompleted: '01-01-2021',
     },
 ];
+const title = document.querySelector('#title');
+const author = document.querySelector('#author');
+const genre = document.querySelector('#genre');
+const year = document.querySelector('#year');
+const pages = document.querySelector('#pages');
+const readStatus = document.querySelector('#readStatus');
+const dateCompleted = document.querySelector('#completedDate');
 
 function Book() {
     // constructor
 }
-
-function addBookToLibrary(e) {
+Book.prototype.addBookToLibrary = () => {
     // do stuff
+    myLibrary.push({
+        Title: title.value,
+        Author: author.value,
+        Genre: genre.value,
+        Year: year.value,
+        ReadStatus: readStatus.value,
+        DateCompleted: dateCompleted.value,
+    })
 }
-
+// on submit form
+const form = document.querySelector('.form');
+form.onsubmit = () => {
+    const newBook = new Book();
+    newBook.addBookToLibrary();
+    books.innerHTML = '';
+    showBooksOnLibrary();
+    formModal.style.display = 'none'; 
+    // temporary measure to stay on current page
+    return false;
+}
 const openModal = document.querySelector('#openModal');
 openModal.addEventListener('click', showForm);
 
-const form = document.querySelector('.modal');
+const formModal = document.querySelector('.modal');
 function showForm(){
-    form.style.display = 'block';
-}
-
-const resetForm = document.querySelector('#resetForm');
-resetForm.addEventListener('click', clearFormData);
-function clearFormData(e){
-    console.log('test');
+    formModal.style.display = 'block';
 }
 
 window.addEventListener('click', closeForm);
 function closeForm(e){
-    if (e.target == form) {
-        form.style.display = "none";
+    if (e.target == formModal) {
+        formModal.style.display = "none";
     }
 }
-
 
 const books = document.querySelector('.books');
 
@@ -93,7 +110,7 @@ function showBooksOnLibrary(){
         const removeBookBtn = document.createElement('button');
         removeBookBtn.className = 'button';
         removeBookBtn.id = 'removeBook';
-        removeBookBtn.innerText = 'Remove';
+        removeBookBtn.innerText = 'Remove Book';
 
         div.appendChild(title);
         div.appendChild(author);
