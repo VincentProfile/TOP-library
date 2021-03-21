@@ -51,6 +51,8 @@ Book.prototype.addBookToLibrary = () => {
         ReadStatus: readStatus.value,
         DateCompleted: dateCompleted.value,
     })
+
+    console.table(myLibrary);
 }
 
 // on submit form
@@ -201,11 +203,8 @@ function showBooksOnLibrary(){
     function removeBook(e){
         const bookPosition = e.target.getAttribute('data-index');
         myLibrary.splice(bookPosition, 1);
-        const removeElements = document.querySelector(`[data-index="${bookPosition}"]`)
-        removeElements.innerHTML = '';
-        const books = document.querySelector('.books');
-        books.removeChild(removeElements);
-        //const bookInfo = document.querySelectorAll(`[data-index="${e.target.getAttribute('data-index')}"]`);
+        books.innerHTML = '';
+        showBooksOnLibrary();
     }
 }
 
