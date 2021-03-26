@@ -7,48 +7,60 @@ let pages = document.querySelector('#pages');
 let readStatus = document.querySelector('#readStatus');
 let dateCompleted = document.querySelector('#completedDate');
 
-function Book() {
+function Book(title, author, genre, year, pages, readStatus, dateCompleted) {
     // constructor
+    this.title = title.value;
+    this.author = author.value;
+    this.genre = genre.value;
+    this.year = year.value;
+    this.pages = pages.value;
+    this.readStatus = readStatus.value;
+    this.dateCompleted = dateCompleted.value;
 }
-Book.prototype.addBookToLibrary = () => {
+// unable to use arrow function 
+Book.prototype.addBookToLibrary = function () {
     // do stuff
+    console.log(this.title);
     myLibrary.push({
-        // add books from form values to library array
-        Title: title.value,
-        Author: author.value,
-        Genre: genre.value,
-        Year: year.value,
-        ['Number of Pages']: pages.value,
-        ReadStatus: readStatus.value,
-        DateCompleted: dateCompleted.value,
+        Title: this.title,
+        Author: this.author,
+        Genre: this.genre,
+        Year: this.year,
+        ['Number of Pages']: this.pages,
+        ReadStatus: this.readStatus,
+        DateCompleted: this.dateCompleted,
     })
     localStorage.setItem('Library', JSON.stringify(myLibrary));
+}
+Book.prototype.updateBookToLibrary = function () {
 
+    // update library array from form values
+    const bookNumber = myLibrary.findIndex(book => book.Title === this.title);
+
+    myLibrary[bookNumber].Title = this.title;
+    myLibrary[bookNumber].Author = this.author;
+    myLibrary[bookNumber].Genre = this.genre;
+    myLibrary[bookNumber].Year = this.year;
+    myLibrary[bookNumber]['Number of Pages'] = this.pages;
+    myLibrary[bookNumber].ReadStatus = this.readStatus;
+    if (readStatus.value === 'Read'){
+        myLibrary[bookNumber].DateCompleted = this.dateCompleted;
+    }else{
+        myLibrary[bookNumber].DateCompleted = '';
+    }
+    formModal.style.display = 'none'; 
 }
 
 // on submit form
 const submitBtn = document.querySelector('#addBook');
 const form = document.querySelector('.form');
 form.onsubmit = () => {
-    if (myLibrary.find(book => book.Title === title.value)){
+    const newBook = new Book(title, author, genre, year, pages, readStatus, dateCompleted);
+    if (myLibrary.find(book => book.Title === newBook.title)){
         if (confirm("Update existing book?")){
-            // update library array from form values
-            const bookNumber = myLibrary.findIndex(book => book.Title === title.value);
-            myLibrary[bookNumber].Title = title.value;
-            myLibrary[bookNumber].Author = author.value;
-            myLibrary[bookNumber].Genre = genre.value;
-            myLibrary[bookNumber].Year = year.value;
-            myLibrary[bookNumber]['Number of Pages'] = pages.value;
-            myLibrary[bookNumber].ReadStatus = readStatus.value;
-            if (readStatus.value === 'Read'){
-                myLibrary[bookNumber].DateCompleted = dateCompleted.value;
-            }else{
-                myLibrary[bookNumber].DateCompleted = '';
-            }
-            formModal.style.display = 'none'; 
+            newBook.updateBookToLibrary();
         }
     }else{
-        const newBook = new Book();
         newBook.addBookToLibrary();
         formModal.style.display = 'none'; 
     }
@@ -70,7 +82,7 @@ function showForm(e){
         submitBtn.value = 'Update';
         myLibrary.forEach((book, index) =>{
             if (e.target.getAttribute('data-index') == index){
-                // show current book information on form 
+                // show current book information from librar to form 
                 title.value = book.Title;
                 author.value = book.Author;
                 genre.value = book.Genre;
